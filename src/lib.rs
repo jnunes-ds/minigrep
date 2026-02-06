@@ -2,7 +2,11 @@ use std::{error, fs};
 
 pub fn run(config: Config) -> Result<(), Box<dyn error::Error>> {
     let contents = fs::read_to_string(config.filename)?;
-    println!("With thext:\n{}", contents);
+
+    for line in search(&config.query, &contents) {
+        println!("{}", line);
+    }
+
     Ok(())
 }
 
