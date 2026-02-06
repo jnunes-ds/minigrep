@@ -8,15 +8,15 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let config = Config::new(&args).unwrap_or_else(|err| {
-        println!("{}: {}", "Problem parsing arguments".bold().red(), err.red());
+        eprintln!("{}: {}", "Problem parsing arguments".bold().red(), err.red());
         process::exit(1);
     });
 
-    println!("searching for {}", config.query);
-    println!("In file {}", config.filename);
+    eprintln!("searching for {}", config.query);
+    eprintln!("In file {}", config.filename);
 
     if let Err(e) = run(config) {
-        println!("{}: {}", "Application error".bold().red(), e.to_string().red());
+        eprintln!("{}: {}", "Application error".bold().red(), e.to_string().red());
         process::exit(1);
     };
 }

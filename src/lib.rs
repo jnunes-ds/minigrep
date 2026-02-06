@@ -4,7 +4,7 @@ pub fn run(config: Config) -> Result<(), Box<dyn error::Error>> {
     let contents = fs::read_to_string(config.filename)?;
 
     let results = if config.case_sensitive {
-        search(&config.query, &contents)
+        search_case_sensitive(&config.query, &contents)
     } else {
         search_case_insensitive(&config.query, &contents)
     };
@@ -36,7 +36,7 @@ impl Config {
     }
 }
 
-pub fn search<'a>(query: &'a str, contents: &'a str) -> Vec<&'a str> {
+pub fn search_case_sensitive<'a>(query: &'a str, contents: &'a str) -> Vec<&'a str> {
     let mut results = Vec::new();
 
     for line in contents.lines() {
@@ -75,7 +75,7 @@ mod tests {
 Rust:
 safe, fast, productive.
 Duct tape.";
-        assert_eq!(vec!["safe, fast, productive."], search(query, contents));
+        assert_eq!(vec!["safe, fast, productive."], search_case_sensitive(query, contents));
 
     }
 
